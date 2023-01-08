@@ -1,0 +1,22 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	// Kullanıcıdan alıcak olan Ad Soyad bilgilerinini ekranda göstericez daha önemlisi Kullanıcı sonsuz girdi sağlayabiliyor, ismi veya soyismi 
+	// bir dizeye atamadan yapıcaz.
+
+	char ad[20], soyad[20];
+	cout << "Ad:";
+	gets_s(ad); // şuan da get(ad) şeklinde çalışmıyor, galiba get fonksiyonu hatalı olduğu için kaldırmışlar.
+
+	cout << endl << "Soyad:";
+	gets_s(soyad);
+
+	strcat_s(ad,soyad);
+
+	cout << "\nAd Soyad:" << endl;
+	puts(ad);
+	
+}
