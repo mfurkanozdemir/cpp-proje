@@ -1,0 +1,32 @@
+
+// Önceden girilen kullanıcı adının doğru olup olmamasını kontrol edelim
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	char kullanici_adi[10], kullanici_sifre[10];
+	char id[] = "Furkan";
+	char sifre[] = "Enter";
+
+	// kullanıcı adi ve sifre belirlendi, şimdi ekranda kullanıcıdan adı ve şifresi girilmesi istenecek ve adım adım dğruluğu tespıit edilecek
+	while (1)
+	{
+		cout << "Kullanici adinizi giriniz:";
+		gets_s(kullanici_adi);
+
+		if (strcmp(kullanici_adi, id) == 0)
+		{
+			cout << "Sifrenizi giriniz:";
+			gets_s(kullanici_sifre);
+			if (strcmp(kullanici_sifre, sifre) == 0)
+				break;
+			else cout << "Sifre hatali\n";
+		}
+		else
+			cout << "Kullanici adi yanlis!";
+		}
+	cout << "Giris basarili";
+	return 0;
+}
