@@ -1,0 +1,136 @@
+#include <iostream>
+using namespace std;
+
+
+class Ogrenci {
+private:
+	string tc;
+	string isim;
+	string soyisim;
+	string dersinAdi;
+	int aldigiNot;
+public:
+	Ogrenci() {}
+	/*{
+		cout << "Yapici method calisti" << endl;
+	}*/
+	void setTc(string tc) { this->tc = tc; }
+	void setİsim(string isim) { this->isim = isim; }
+	void setSoyisim(string soyisim) { this->soyisim = soyisim; }
+	void setDersiAdi(string dersinAdi) { this->dersinAdi = dersinAdi; }
+	void setAldigiNot(int aldigiNot) { this->aldigiNot = aldigiNot; }
+
+	string getTc() { return tc; }
+	string getİsim() { return isim; }
+	string getsoyisim() { return soyisim; }
+	string getdersinAdi() { return dersinAdi; }
+	int getAldigiNot() { return aldigiNot; }
+
+	void listele(Ogrenci[]);
+	// burada mehod oluşturalım ve methodlara class'tan oluşturulmuş objeler üzerinden ulaşılabilir ve bunun için obje.methodisimi yazılır
+};
+
+void Ogrenci::listele(Ogrenci ogr[]) {
+	cout << "Kayitli ogreni bilgileri:" << endl; cout << endl; cout << endl;
+	for (int i = 0; i < 3; i++) {
+		cout << "Tc: " << ogr[i].getTc() << endl;
+		cout << "Isim: " << ogr[i].getİsim() << endl;
+		cout << "Soyisim: " << ogr[i].getsoyisim() << endl;
+		cout << "Dersin Adi: " << ogr[i].getdersinAdi() << endl;
+		cout << "Aldigi not: " << ogr[i].getAldigiNot() << endl; cout << endl; cout << endl;
+	}
+}
+void sırala(Ogrenci ogr[]) {
+	Ogrenci temp;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 2; j++) {
+			if (ogr[j].getİsim().compare(ogr[j + 1].getİsim()) > 0) {
+				temp=ogr[j];
+				ogr[j]=ogr[j+1];
+				ogr[j+1]=temp;
+			}
+		}
+	}
+	cout << "Liste siralandi..." << endl;
+	for (int i = 0; i < 3; i++) {
+		cout << i + 1 << ". ogrenci bilgileri: "		<<endl;
+		cout << "Tc:"			<< ogr[i].getTc()		<<endl;
+		cout << "Isim:"			<< ogr[i].getİsim()		<<endl;
+		cout << "Soyisim:"		<< ogr[i].getsoyisim()	<<endl;
+		cout << "Dersin Adi:"	<< ogr[i].getdersinAdi()<<endl;
+		cout << "Aldigi Not:"	<< ogr[i].getAldigiNot()<<endl; cout << endl;
+	}
+	cout << "Ogrenci bilgileri girildi..."; cout << endl; cout << endl;
+}
+
+void arama(Ogrenci ogr[]) {
+	
+	string arananİsim;
+	cout << "Aramis oldugunuz ogrencinin ismini giriniz: "; cin >> arananİsim;
+	
+	for (int i = 0; i < 3; i++) {
+		if (arananİsim == ogr[i].getİsim()) {
+			cout << "Aradiginiz ogrenci bilgileri : " << endl;
+			cout << "Tc:" << ogr[i].getTc() << endl;
+			cout << "Isim:" << ogr[i].getİsim() << endl;
+			cout << "Soyisim:" << ogr[i].getsoyisim() << endl;
+			cout << "Dersin Adi:" << ogr[i].getdersinAdi() << endl;
+			cout << "Aldigi Not:" << ogr[i].getAldigiNot() << endl; cout << endl;
+		}
+	}
+}
+
+void enyüksekPuan(Ogrenci ogr[]) {
+	int enyüksekPuan = 0;
+	Ogrenci temp;
+	for (int i = 0; i < 3; i++) {
+		if (enyüksekPuan < ogr[i].getAldigiNot()) {
+			temp = ogr[i];
+			enyüksekPuan = ogr[i].getAldigiNot();
+		}
+	}
+	cout << "En yuksek pauna sahip ogrenci bilgileri : " << endl;
+	cout << "Tc:" << temp.getTc() << endl;
+	cout << "Isim:" << temp.getİsim() << endl;
+	cout << "Soyisim:" << temp.getsoyisim() << endl;
+	cout << "Dersin Adi:" << temp.getdersinAdi() << endl;
+	cout << "Aldigi Not:" << temp.getAldigiNot() << endl; cout << endl;
+}
+
+int main() {
+	Ogrenci ogr [3];
+
+	string tc;
+	string isim;
+	string soyisim;
+	string dersinAdi;
+	int aldigiNot;
+
+	for (int i = 0; i < 3; i++) {
+		cout << i + 1 << ". ogrenci bilgilerini giriniz" << endl;
+		cout << "Tc:"; cin >> tc;
+		cout << "Isim:"; cin >> isim;
+		cout << "Soyisim:"; cin >> soyisim;
+		cout << "Dersin ADI:"; cin >> dersinAdi;
+		cout << "Aldigi Not:"; cin >> aldigiNot;
+
+		ogr[i].setTc(tc);
+		ogr[i].setİsim(isim);
+		ogr[i].setSoyisim(soyisim);
+		ogr[i].setDersiAdi(dersinAdi);
+		ogr[i].setAldigiNot(aldigiNot);
+	}
+	cout << "Kayit islemi tamamlandi." << endl;
+	cout << endl; cout << endl; 
+	ogr[0].listele(ogr);
+	cout << endl; cout << endl;
+	sırala(ogr);
+
+	cout << endl; cout << endl;
+
+	arama(ogr);
+	cout << endl; cout << endl;
+	enyüksekPuan(ogr);
+
+	return 0;
+}
