@@ -1,0 +1,181 @@
+A simple application of 2048 game with c++ codes
+
+
+#include <iostream>
+#include <vector>           // Dinamik bir dizi oluşturmak için kullanılır
+#include <cstdlib>          // Rastgele sayı üretmek için kullanılır. srand() ve rand() gibi
+#include <ctime>            // Zaman işlemleri için kullanılır
+
+using namespace std;
+
+class Game2048 {
+private:
+    int size;
+    vector<vector<int>>board;       // Bir vektör diğer vektör ile iç içe geçmiştir ve 2D matrisler için kulllanılabilir
+public:
+    Game2048(int boardSize) : size(boardSize), board(boardSize, vector<int>(boardSize, 0)) {
+        srand(time(0));
+        initializeBoard();
+        
+    }
+
+    void initializeBoard() {
+        addRandomTwo();
+    }
+    void addRandomTwo() {
+        vector<pair<int, int>> emptyCells;
+        for (int i = 0; i < size; ++i) {
+            for (int j = 0; j < size; ++j) {
+                if (board[i][j] == 0) {
+                    emptyCells.push_back(make_pair(i, j));
+                }
+            }
+        }
+
+        if (!emptyCells.empty()) {
+            int randomIndex = rand() % emptyCells.size();
+            board[emptyCells[randomIndex].first][emptyCells[randomIndex].second] = 2;
+        }
+    }
+
+    void printBoard() {
+        for (int i = 0; i < size; ++i) {
+            for (int j = 0; j < size; ++j) {
+                cout << board[i][j] << "\t";
+            }
+            cout << endl;
+        }
+    }
+
+    void moveRight(){
+        //Parçalar halinde burada ki görevimizi yazalım
+        for (int i = 0; i < size; ++i) {
+            for (int j = size - 2; j >=0 ; --j) {
+                if (board[i][j] != 0) {
+                    int k = j+1;
+                    while (k < size && board[i][k] == 0) {
+                        board[i][k] = board[i][k - 1];
+                        board[i][k - 1] = 0;
+                        ++k;
+                    }
+                    if (k < size && board[i][k] == board[i][k - 1]) {
+                        board[i][k] *= 2;
+                        board[i][k-1] = 0;
+                    }
+                }
+            }
+        }
+    }
+    void moveLeft(){
+        for (int i = 0; i < size; ++i) {
+            for (int j = 1; j<size; ++j) {
+                if (board[i][j] != 0) {
+                    int k = j - 1;
+                    while (k >=0 && board[i][k] == 0) {
+                        board[i][k] = board[i][k+1];
+                        board[i][k+1] = 0;
+                        --k;
+                    }
+                    if (k >= 0 && board[i][k] == board[i][k+1]) {
+                        board[i][k] *= 2;
+                        board[i][k+1] = 0;
+                    }
+                }
+            }
+        }
+    }    
+    void moveUp(){
+        for (int j=0; j<size; j++) {
+            for (int i=1; i<size; ++i) {
+                if(board[i][j] != 0) {
+                    int k = i - 1;
+                    while(k >= 0 && board[k][j] == 0){
+                        board[k][j] = board[k+1][j];
+                        board[k+1][j] = 0;
+                        --k;                   
+                    }
+                    if(k >= 0 && board[k][j] == board[k+1][j]){
+                        board[k][j] *= 2;
+                        board[k+1][j] = 0;
+                    }
+                }
+
+            }
+        }
+    
+    }
+    void moveDown(){
+        for (int j = 0; j < size; j++) {
+            for (int i = size -2; i>=0 ; --i) {
+                if (board[i][j] != 0) {
+                    int k = i + 1;
+                    while (k < size && board[k][j] == 0) {
+                        board[k][j] = board[k - 1][j];
+                        board[k - 1][j] = 0;
+                        ++k;
+                    }
+                    if (k < size && board[k][j] == board[k - 1][j]) {
+                        board[k][j] *= 2;
+                        board[k-1][j] = 0;
+                    }
+                }
+            }
+        }
+    }
+    void playGame() {
+        while (true)
+        {
+            printBoard();
+            cout << "Secin: (saga icin 'd', sol icin 'a', yukarisi icin 'w',asagisi için 's', cikis icin 'Q', ekrani yenilemek icin 'f'): ";
+            char move;
+            cin >> move;
+            if (move == 'f' || move == 'F') {
+                clearScrean();
+                initializeBoard();
+            }
+            else if (move == 'w' || move == 'W') {
+                clearScrean();
+                moveUp();
+                initializeBoard();
+            }else if (move == 's' || move == 'S') {
+                clearScrean();
+                moveDown();
+                initializeBoard();
+            }
+
+            else if (move == 'd' || move == 'D') {
+                clearScrean();
+                moveRight();
+                initializeBoard();
+            }else if (move == 'a' || move == 'A') {
+                clearScrean();
+                moveLeft();
+                initializeBoard();
+            }
+            else if (move== 'q' || move == 'Q')
+            {
+                cout << "Oyun Sonlandirildi!";
+                break;
+            }
+            else {
+                cout << "Geçersiz Seçim";
+            }
+
+        }
+        
+    }
+    void clearScrean() {
+        system("cls");
+    }
+};
+
+
+int main()
+{
+    int boardSize = 5;                  // Tahta boyutu belirlenir
+    Game2048 game(boardSize);
+
+    game.playGame();
+
+    return 0;
+}
