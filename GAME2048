@@ -1,6 +1,4 @@
 A simple application of 2048 game with c++ codes
-// SOSProje.cpp : Bu dosya 'main' işlevi içeriyor. Program yürütme orada başlayıp biter.
-// 2048 oyunu
 
 
 #include <iostream>
@@ -18,23 +16,10 @@ public:
     Game2048(int boardSize) : size(boardSize), board(boardSize, vector<int>(boardSize, 0)) {
         srand(time(0));
         initializeBoard();
-        // Tahtayı başlatma işlemleri burada yapılabilir.
-        // Örneğin, rastgele iki adet 2 veya 4 sayısı tahtada belirli konumlarda olabilir.
         
     }
 
     void initializeBoard() {
-        // Tahtayı başlangıç durumuna getirme işlemleri burada yapılabilir.
-        // Örneğin, rastgele iki adet 2 veya 4 sayısı tahtada belirli konumlarda olabilir.
-        // Bu adımı kendiniz özelleştirebilirsiniz.
-        /*int randomROW = rand() % size;
-        int randomCOL = rand() % size;
-        if(board[i][j] != 0) {
-            board[randomROW][randomCOL] = 2;
-        }
-
-
-    }*/
         addRandomTwo();
     }
     void addRandomTwo() {
@@ -182,10 +167,6 @@ public:
     void clearScrean() {
         system("cls");
     }
-
-    // Diğer oyun işlevlerini burada tanımlayabilirsiniz.
-    // Hamle yapma, tahtayı güncelleme, oyun durumunu kontrol etme vb
-
 };
 
 
